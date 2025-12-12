@@ -1,18 +1,37 @@
 <?php
 include 'session_check.php';
-include("config_db.php");
-echo "Connected successfully<br>";
+include 'config_db.php';
 
-// sql to delete table
+$mensaje = "Connected successfully<br>";
+
+// Borrar base de datos (si existe)
 $sql = "DROP DATABASE IF EXISTS $dbname";
 
-
-if (mysqli_query($conn, $sql)==false) {
-  echo "Error deleting database: " . mysqli_error($conn);
+if (mysqli_query($conn, $sql) == false) {
+    $mensaje .= "Error deleting database: " . mysqli_error($conn);
 } else {
-  echo "Database (if it existed) deleted successfully";
+    $mensaje .= "Database (if it existed) deleted successfully";
 }
 
-// Close connection
 mysqli_close($conn);
-?> 
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Borrar base de datos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<?php include 'cabecera.html'; ?>
+
+<div class="container mt-4">
+    <h1>Borrar base de datos</h1>
+    <p><?php echo $mensaje; ?></p>
+    <p><a href="index.php" class="btn btn-secondary btn-sm">Volver al índice</a></p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,24 +1,42 @@
 <?php
 include 'session_check.php';
-include("config_db.php");
-echo "Connected successfully<br>";
+include 'config_db.php';
 
+$mensaje = "Connected successfully<br>";
 
-// 1. Consulta para verificar si la tabla existe
 $sql = "SHOW TABLES LIKE 'MyGuests'";
 $result = mysqli_query($conn, $sql);
 
-// Verificar el resultado de la comprobación
-if (mysqli_num_rows($result) == 0) {
-    // 2. Si mysqli_num_rows devuelve 0, la tabla NO existe
-    echo "Aviso: La tabla **MyGuests** no existe. No se puede visualizar.";
-    // Puedes terminar aquí o simplemente omitir la consulta
-}
-else{
-echo "Aviso: La tabla **MyGuests** existe.";
+if ($result && mysqli_num_rows($result) == 0) {
+    $mensaje .= "Aviso: La tabla MyGuests no existe. No se puede visualizar.";
+} elseif ($result && mysqli_num_rows($result) > 0) {
+    $mensaje .= "Aviso: La tabla MyGuests existe.";
+} else {
+    $mensaje .= "Error al comprobar la tabla: " . mysqli_error($conn);
 }
 
-
-// Close connection
+if ($result) {
+    mysqli_free_result($result);
+}
 mysqli_close($conn);
-?> 
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Comprobar tabla MyGuests</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<?php include 'cabecera.html'; ?>
+
+<div class="container mt-4">
+    <h1>Comprobar existencia de la tabla MyGuests</h1>
+    <p><?php echo $mensaje; ?></p>
+    <p><a href="index.php" class="btn btn-secondary btn-sm">Volver al índice</a></p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

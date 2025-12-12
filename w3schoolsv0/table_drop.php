@@ -1,18 +1,36 @@
 <?php
 include 'session_check.php';
-include("config_db.php");
-echo "Connected successfully<br>";
+include 'config_db.php';
 
-// sql to delete table
+$mensaje = "Connected successfully<br>";
+
 $sql = "DROP TABLE IF EXISTS MyGuests";
 
-
-if (mysqli_query($conn, $sql)==false) {
-  echo "Error deleting table: " . mysqli_error($conn);
+if (mysqli_query($conn, $sql) == false) {
+    $mensaje .= "Error deleting table: " . mysqli_error($conn);
 } else {
-  echo "Table MyGuests (if it existed) deleted successfully";
+    $mensaje .= "Table MyGuests (if it existed) deleted successfully";
 }
 
-// Close connection
 mysqli_close($conn);
-?> 
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Borrar tabla MyGuests</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<?php include 'cabecera.html'; ?>
+
+<div class="container mt-4">
+    <h1>Borrar tabla MyGuests</h1>
+    <p><?php echo $mensaje; ?></p>
+    <p><a href="index.php" class="btn btn-secondary btn-sm">Volver al índice</a></p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
