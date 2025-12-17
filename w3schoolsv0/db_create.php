@@ -5,7 +5,7 @@ include 'session_check.php';
 $servername = "localhost";
 $username   = "MAZ";
 $password   = "admin";
-$dbname     = "bd_w3_maz"; // o el nombre que uses
+$dbname     = "bd_w3_maz";
 
 $mensaje = "";
 

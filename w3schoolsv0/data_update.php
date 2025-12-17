@@ -2,6 +2,16 @@
 include 'session_check.php';
 include 'config_db.php';
 
+// Crear conexión
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+
+// Comprobar conexión
+if (!$conn) {
+  die("Connection failed: " . mysqli_connect_error());
+}
+
+$mensaje = "";
+
 // Cambiar el teléfono del usuario con código u00001
 $sql = "UPDATE MyGuests
         SET phone = '699000111'

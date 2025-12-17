@@ -2,7 +2,15 @@
 include 'session_check.php';
 include 'config_db.php';
 
-$mensaje = "Connected successfully<br>";
+// Crear conexión
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+
+// Comprobar conexión
+if (!$conn) {
+  die("Connection failed: " . mysqli_connect_error());
+}
+
+$mensaje = "";
 
 // Borrar base de datos (si existe)
 $sql = "DROP DATABASE IF EXISTS $dbname";

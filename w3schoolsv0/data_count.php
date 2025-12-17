@@ -2,6 +2,14 @@
 include 'session_check.php';
 include 'config_db.php';
 
+// Crear conexión
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+
+// Comprobar conexión
+if (!$conn) {
+  die("Connection failed: " . mysqli_connect_error());
+}
+
 // Contar cuántos usuarios tienen teléfono informado
 $sql = "SELECT COUNT(*) AS total
         FROM MyGuests

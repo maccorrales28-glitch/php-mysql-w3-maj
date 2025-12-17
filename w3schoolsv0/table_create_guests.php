@@ -2,6 +2,14 @@
 include 'session_check.php';
 include 'config_db.php';
 
+// Crear conexión
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+
+// Comprobar conexión
+if (!$conn) {
+  die("Connection failed: " . mysqli_connect_error());
+}
+
 $sql = "CREATE TABLE MyGuests (
 id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 firstname VARCHAR(30) NOT NULL,

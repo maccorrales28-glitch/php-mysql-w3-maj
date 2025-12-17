@@ -2,6 +2,14 @@
 include 'session_check.php';
 include 'config_db.php';
 
+// Crear conexión
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+
+// Comprobar conexión
+if (!$conn) {
+  die("Connection failed: " . mysqli_connect_error());
+}
+
 // Ordenar por código de usuario de menor a mayor
 $sql = "SELECT id, firstname, lastname, email, phone, usercode
         FROM MyGuests
