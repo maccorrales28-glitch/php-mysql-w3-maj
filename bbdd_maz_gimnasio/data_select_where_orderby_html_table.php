@@ -11,9 +11,9 @@ if (!$conn) {
 }
 
 $sql = "SELECT socio_id, nombre_socio, tipo_suscripcion, fecha_acceso, zona_actividad 
-        FROM bbdd_maz_gimnasio
+        FROM datos
         WHERE tipo_suscripcion = 'Gold'
-        ORDER BY fecha_acceso DESC";
+        ORDER BY nombre_socio ASC";
 
 $result = mysqli_query($conn, $sql);
 ?>
@@ -21,7 +21,7 @@ $result = mysqli_query($conn, $sql);
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Socios Gold (Tabla HTML)</title>
+    <title>Socios Gold</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -29,16 +29,17 @@ $result = mysqli_query($conn, $sql);
 <?php include 'cabecera.html'; ?>
 
 <div class="container mt-4">
-    <h1>Listado de Socios GOLD</h1>
-    <p class="text-muted">Mostrando accesos de suscripción Gold ordenados por fecha.</p>
+    <h3>🏆 Listado de Socios GOLD</h3>
+    <p class="text-muted">Mostrando exclusivamente los socios con suscripción Gold.</p>
 
     <table class="table table-striped table-hover">
-        <thead class="table-warning"> <tr>
+        <thead class="table-warning">
+            <tr>
                 <th>ID</th>
                 <th>Nombre Socio</th>
                 <th>Suscripción</th>
                 <th>Fecha Acceso</th>
-                <th>Zona Actividad</th>
+                <th>Zona</th>
             </tr>
         </thead>
         <tbody>
@@ -47,20 +48,20 @@ $result = mysqli_query($conn, $sql);
             while ($row = mysqli_fetch_assoc($result)) {
                 echo "<tr>";
                 echo "<td>" . $row["socio_id"] . "</td>";
-                echo "<td>" . $row["nombre_socio"] . "</td>";
-                echo "<td><strong>" . $row["tipo_suscripcion"] . "</strong></td>";
+                echo "<td><strong>" . $row["nombre_socio"] . "</strong></td>";
+                echo "<td>" . $row["tipo_suscripcion"] . "</td>";
                 echo "<td>" . $row["fecha_acceso"] . "</td>";
                 echo "<td>" . $row["zona_actividad"] . "</td>";
                 echo "</tr>";
             }
         } else {
-            echo "<tr><td colspan='5' class='text-center'>No se encontraron socios Gold.</td></tr>";
+            echo "<tr><td colspan='5'>No hay socios Gold registrados.</td></tr>";
         }
         ?>
         </tbody>
     </table>
 
-    <p><a href="index.php" class="btn btn-secondary btn-sm">Volver al índice</a></p>
+    <p><a href="index.php" class="btn btn-outline-secondary btn-sm">Volver al índice</a></p>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

@@ -2,13 +2,15 @@
 session_start();
 include 'recoge.php';
 
-if (!isset($_SESSION["usuario"]) || $_SESSION["usuario"] != "maz") {
+if (!isset($_SESSION["usuario"]) || $_SESSION["usuario"] != "admin") {
     header("Location: login.php");
     exit;
 }
 
-$si = recoge("si");
-$no = recoge("no");
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $si = recoge("si");
+    $no = recoge("no");
 
     if ($si != "") {
         session_unset();
@@ -21,6 +23,7 @@ $no = recoge("no");
         header("Location: index.php");
         exit;
     }
+}
 ?>
 <!DOCTYPE html>
 <html>

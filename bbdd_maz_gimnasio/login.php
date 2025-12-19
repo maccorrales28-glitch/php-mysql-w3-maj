@@ -4,17 +4,20 @@ include 'recoge.php';
 
 $mensaje = "";
 
-$usuario    = recoge("usuario");
-$contrasena = recoge("contrasena");
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    if ($usuario == "maz" && $contrasena == "maz") {
-        $_SESSION["usuario"] = "maz";
+    $usuario    = recoge("usuario");
+    $contrasena = recoge("contrasena");
+
+    if ($usuario == "admin" && $contrasena == "P4ssw0rd") {
+        $_SESSION["usuario"] = "admin"; // Guardamos 'admin' en la sesión
         header("Location: index.php");
         exit;
     } else {
         $_SESSION["usuario"] = "";
         $mensaje = "Usuario o contraseña incorrectos";
     }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -53,9 +56,6 @@ $contrasena = recoge("contrasena");
                 <button class="btn btn-primary" type="submit">Entrar</button>
             </div>
         </form>
-        <div class="text-center mt-3">
-            <small class="text-muted">Credenciales por defecto: maz / maz</small>
-        </div>
     </div>
 </div>
 
